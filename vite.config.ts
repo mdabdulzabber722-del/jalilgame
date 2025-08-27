@@ -3,17 +3,15 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: './',
+  base: '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
-    minify: 'terser',
+    minify: true,
     rollupOptions: {
       output: {
-        assetFileNames: 'assets/[name].[hash][extname]',
-        chunkFileNames: 'assets/[name].[hash].js',
-        entryFileNames: 'assets/[name].[hash].js'
+        manualChunks: undefined,
       }
     }
   },
@@ -25,7 +23,9 @@ export default defineConfig({
     port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
     host: '0.0.0.0',
   },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  }
 });
